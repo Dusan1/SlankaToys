@@ -1,0 +1,117 @@
+trigger:
+- main
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+
+    pool:
+      vmImage: 'windows-latest'
+
+    variables:
+      solution: '**/*.sln'
+      buildPlatform: 'Any CPU'
+      buildConfiguration: 'Release'
+
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build SlankaToys.sln'
+      inputs:
+        command: 'build'
+        projects: 'SlankaToys.sln'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run unit tests'
+      inputs:
+        command: test
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'New manifest for tool'
+      inputs:
+        command: custom
+        custom: 'new '
+        arguments: tool-manifest
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Install EF tool'
+      inputs:
+        command: custom
+        custom: 'tool '
+        arguments: install dotnet-ef
+
+    - task: PowerShell@2
+      displayName: 'Generate SQL Scripts'
+      inputs:
+        filePath: 'powershellScripts/generate-migrations.ps1'
+        arguments: '-MigrationsDirectory "SlankaToys.Infrastructure/Migrations/"'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Pipeline Scripts'
+      inputs:
+        SourceFolder: 'powershellScripts/'
+        Contents: '*'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/scripts/'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish API'
+      inputs:
+        command: 'publish'
+        Arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        projects: 'SlankaToys.API/SlankaToys.API.csproj'
+        publishWebProjects: false,
+        zipAfterPublish: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish build artifacts'
+      inputs:
+        PathToPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'STAPI'
+        publishLocation: 'Container'
+
+# - stage: Deploy
+#   jobs:
+#   - job: Deploy
+#     pool:
+#       vmImage: 'windows-latest'
+#     steps:
+#       - task: DownloadBuildArtifacts@0
+#         displayName: 'Download build artifacts'
+#         inputs:
+#           buildType: 'current'
+#           artifactName: 'STAPI'
+#           downloadType: 'single'
+#           downloadPath: '$(System.ArtifactsDirectory)/_STAPI'
+
+#       - task: AzureRmWebAppDeployment@4
+#         displayName: 'Deploy API'
+#         inputs:
+#           ConnectionType: 'AzureRM'
+#           azureSubscription: 'Azure subscription 1(c6cd04b9-627d-4ddb-811e-5278f525e468)'
+#           appType: 'webApp'
+#           WebAppName: 'slankatoys'
+#           packageForLinux: '$(System.ArtifactsDirectory)/_STAPI/STAPI/SlankaToys.API.zip'
+
+#       - task: AzureKeyVault@1
+#         inputs:
+#           azureSubscription: 'Azure subscription 1(c6cd04b9-627d-4ddb-811e-5278f525e468)'
+#           KeyVaultName: 'slankaToysKeyVault'
+#           SecretsFilter: 'sqldbpassword'
+#           RunAsPreJob: false
+#       - task: AzurePowerShell@5
+#         displayName: 'Run EF Migrations'
+#         # condition: and(succeeded(), eq(${{ parameters.resetDB }}, true), eq(${{ parameters.runAutomationTests }}, 'true'))
+#         inputs:
+#           azureSubscription: 'Azure subscription 1(c6cd04b9-627d-4ddb-811e-5278f525e468)'
+#           ScriptType: 'FilePath'
+#           ScriptPath: '$(System.ArtifactsDirectory)/_STAPI/STAPI/scripts/run-sql-migrations.ps1'
+#           ScriptArguments: '-SQLServer "tcp:slankatoyssqlserver.database.windows.net,1433" -DatabaseName "SlankaToysDb01" -Username "slankatoys" -Password "$(sqldbpassword)" -MigrationLocation "$(System.ArtifactsDirectory)/_STAPI/STAPI/SQL/"'
+#           preferredAzurePowerShellVersion: 'latestVersion'
+

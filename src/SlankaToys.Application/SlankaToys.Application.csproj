@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\GetProducts\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="UseCases\GetProduct\" />
+    <Folder Include="UseCases\AddToCart\" />
+    <Folder Include="UseCases\GetCart\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Paramore.Darker" Version="2.0.78" />
+    <PackageReference Include="Paramore.Brighter" Version="8.1.1399" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SlankaToys.Domain\SlankaToys.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="UseCases\GetCart\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" />
+  </ItemGroup>
+</Project>

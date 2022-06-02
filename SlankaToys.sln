@@ -1,0 +1,67 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.808.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{14D82FB1-4C48-49A4-88BB-3FEEFDDEE4F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ports", "Ports", "{35B2DFA4-8B9E-41F0-88FD-AE2E480D89FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{798CA8F5-41B5-48D1-A006-856B5F7D37EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlankaToys.Infrastructure", "src\SlankaToys.Infrastructure\SlankaToys.Infrastructure.csproj", "{BEAA998F-65AF-404F-AA9A-C5FEF354D993}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlankaToys.Domain", "src\SlankaToys.Domain\SlankaToys.Domain.csproj", "{B47165A4-853A-4C5B-8176-43A14DD68FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlankaToys.Application", "src\SlankaToys.Application\SlankaToys.Application.csproj", "{C4466F8C-44EB-499D-B5B6-09EEF4E6A290}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlankaToys.API", "src\SlankaToys.API\SlankaToys.API.csproj", "{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlankaToys.UnitTests", "tests\SlankaToys.UnitTests\SlankaToys.UnitTests.csproj", "{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2AB87943-D6E4-47D3-AEFC-48ABCF94AD0D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEAA998F-65AF-404F-AA9A-C5FEF354D993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEAA998F-65AF-404F-AA9A-C5FEF354D993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEAA998F-65AF-404F-AA9A-C5FEF354D993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEAA998F-65AF-404F-AA9A-C5FEF354D993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B47165A4-853A-4C5B-8176-43A14DD68FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B47165A4-853A-4C5B-8176-43A14DD68FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B47165A4-853A-4C5B-8176-43A14DD68FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B47165A4-853A-4C5B-8176-43A14DD68FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4466F8C-44EB-499D-B5B6-09EEF4E6A290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4466F8C-44EB-499D-B5B6-09EEF4E6A290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4466F8C-44EB-499D-B5B6-09EEF4E6A290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4466F8C-44EB-499D-B5B6-09EEF4E6A290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4677BFB9-A0FC-4F50-90DE-3D19F3AA17D6}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BEAA998F-65AF-404F-AA9A-C5FEF354D993} = {14D82FB1-4C48-49A4-88BB-3FEEFDDEE4F0}
+		{B47165A4-853A-4C5B-8176-43A14DD68FD0} = {35B2DFA4-8B9E-41F0-88FD-AE2E480D89FC}
+		{C4466F8C-44EB-499D-B5B6-09EEF4E6A290} = {35B2DFA4-8B9E-41F0-88FD-AE2E480D89FC}
+		{ABBBF7A8-9220-47C3-A5F3-B6C8F166F563} = {14D82FB1-4C48-49A4-88BB-3FEEFDDEE4F0}
+		{60D8E1D6-A5CB-4D51-ABE7-6B3BE9A508B2} = {798CA8F5-41B5-48D1-A006-856B5F7D37EC}
+	EndGlobalSection
+EndGlobal

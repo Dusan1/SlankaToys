@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using SlankaToys.Infrastructure.Repository;
-using SlankaToys.Domain;
-using Paramore.Darker;
-using SlankaToys.Application.UseCases.GetProducts;
-using System.Threading.Tasks;
-using SlankaToys.API.Responses;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Paramore.Darker;
+using SlankaToys.API.Responses;
 using SlankaToys.Application.UseCases.GetProduct;
+using SlankaToys.Application.UseCases.GetProducts;
 
 namespace SlankaToys.API.Controllers
 {
@@ -15,6 +13,7 @@ namespace SlankaToys.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IQueryProcessor _queryProcessor;
+        
         public ProductController(IQueryProcessor queryProcessor) 
         {
             _queryProcessor = queryProcessor;

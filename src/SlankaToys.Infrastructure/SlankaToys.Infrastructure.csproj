@@ -25,4 +25,7 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Migrations\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SlankaToys.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

@@ -13,37 +13,35 @@ namespace SlankaToys.UnitTests
 {
     public class GetProductQueryHandlerTests
     {
-        //private Mock<IProductRepository> productRepository;
-        //private GetProductQueryHandler getProductQueryHandler;
+        private GetProductQueryHandler getProductQueryHandler;
+        private Mock<IProductQueryRepository> productQueryRepository;
+       
 
-        //[SetUp]
-        //public void Setup()
-        //{
-        //    productRepository = new Mock<IProductRepository>();
-        //    getProductQueryHandler = new GetProductQueryHandler(productRepository.Object);
-        //}
+        [SetUp]
+        public void Setup()
+        {
+            productQueryRepository = new Mock<IProductQueryRepository>();
+            getProductQueryHandler = new GetProductQueryHandler(productQueryRepository.Object);
+        }
 
-        //[Test]
-        //public async Task GetProductQueryHandler_ReturnsCorrectResult()
-        //{
-        //    productRepository.Setup(repo => repo.FirstOrDefault(It.IsAny<Expression<Func<Product, bool>>>())).ReturnsAsync(new Product()
-        //    {
-        //        Description = "test2",
-        //        ImageFileName = "test2",
-        //        Name = "test2",
-        //        Price = 2M,
-        //        Id = 2
-        //    });
+        [Test]
+        public async Task GetProductQueryHandler_WhenInvoked_ReturnsCorrectResult()
+        {
+            productQueryRepository.Setup(repo => repo.FirstOrDefault(It.IsAny<Expression<Func<Product, bool>>>())).ReturnsAsync(
+                new Product("test2", "test2", "test2", 2m, 1)
+            {
+                Id = 2
+            });
 
-        //    var queryResult = await getProductQueryHandler.ExecuteAsync(new GetProductQuery() { ProductId = 1 });
+            var queryResult = await getProductQueryHandler.ExecuteAsync(new GetProductQuery() { ProductId = 1 });
 
-        //    Assert.IsNotNull(queryResult);
-        //    Assert.AreEqual("test2", queryResult.Description);
-        //    Assert.AreEqual("test2", queryResult.ImageFileName);
-        //    Assert.AreEqual("test2", queryResult.Name);
-        //    Assert.AreEqual(2M, queryResult.Price);
-        //    Assert.AreEqual(2, queryResult.ProductId);
-        //    productRepository.Verify(pr => pr.FirstOrDefault(It.IsAny<Expression<Func<Product, bool>>>()), Times.Once);
-        //}
+            Assert.IsNotNull(queryResult);
+            Assert.AreEqual("test2", queryResult.Description);
+            Assert.AreEqual("test2", queryResult.ImageFileName);
+            Assert.AreEqual("test2", queryResult.Name);
+            Assert.AreEqual(2M, queryResult.Price);
+            Assert.AreEqual(2, queryResult.ProductId);
+            productQueryRepository.Verify(pr => pr.FirstOrDefault(It.IsAny<Expression<Func<Product, bool>>>()), Times.Once);
+        }
     }
 }

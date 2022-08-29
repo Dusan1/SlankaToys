@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace SlankaToys.Application.UseCases.GetCart
 
         public override async Task<GetCartQueryResult> ExecuteAsync(GetCartQuery query, CancellationToken cancellationToken = default)
         {
+            
             var cart = await _cartQueryRepository.GetUserCartWithItems(query.UserId);
 
             if (cart == null)
@@ -27,7 +29,7 @@ namespace SlankaToys.Application.UseCases.GetCart
                 Date = cart.Date,
                 CartId = cart.Id,
                 Items = cart.CartItems.GroupBy(ci => ci.ProductId).Select(ci => new CartItemResult()
-                {
+               { 
                     ProductName = ci.FirstOrDefault()?.Product?.Name,
                     Price = ci.FirstOrDefault()?.Product?.Price ?? 0m,
                     Quantity = ci.Sum(q => q.Quantity),
@@ -35,6 +37,7 @@ namespace SlankaToys.Application.UseCases.GetCart
                     ProductId = ci.FirstOrDefault()?.Product.Id ?? 0
                 }).ToList()
             };
+
         }
     }
 }

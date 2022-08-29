@@ -1,36 +1,36 @@
 ﻿using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using SlankaToys.Application.Contracts;
 using SlankaToys.Application.UseCases.AddOrder;
-using SlankaToys.Domain.Product;
 
 namespace SlankaToys.UnitTests
 {
     public class AddToCartCommandHandlerTests
     {
-        //private Mock<IProductRepository> productRepository;
-        //private Mock<ICartRepository> cartRepository;
-        //private AddToCartCommandHandler handler;
+        private Mock<IProductRepository> productRepository;
+        private Mock<ICartRepository> cartRepository;
+        private AddToCartCommandHandler handler;
+        private Mock<ILogger<AddToCartCommandHandler>> _logger;
 
-        //[SetUp]
-        //public void Setup()
-        //{
-        //    productRepository = new Mock<IProductRepository>();
-        //    cartRepository = new Mock<ICartRepository>();
-        //    handler = new AddToCartCommandHandler(cartRepository.Object, productRepository.Object);
-        //}
+        [SetUp]
+        public void Setup()
+        {
+            productRepository = new Mock<IProductRepository>();
+            cartRepository = new Mock<ICartRepository>();
+            _logger = new Mock<ILogger<AddToCartCommandHandler>>();
+            handler = new AddToCartCommandHandler(cartRepository.Object, productRepository.Object, _logger.Object);
+        }
 
-        //[Test]
-        //public void AddToCartCommandHandler_ThrowsException()
-        //{
-        //    productRepository
-        //        .Setup(repo => repo.FirstOrDefault(It.IsAny<Expression<Func<Product, bool>>>()))
-        //        .ThrowsAsync(new Exception());
+        [Test]
+        public void AddToCartCommandHandler_ThrowsException()
+        {
+            productRepository
+                .Setup(repo => repo.GetProductById(It.IsAny<int>()))
+                .ThrowsAsync(new Exception());
 
-        //    Assert.ThrowsAsync<Exception>(async () => await handler.HandleAsync(new AddToCartCommand() { }));
-        //}
+            Assert.ThrowsAsync<Exception>(async () => await handler.HandleAsync(new AddToCartCommand() { }));
+        }
     }
 }

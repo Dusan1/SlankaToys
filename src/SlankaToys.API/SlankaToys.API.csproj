@@ -9,6 +9,7 @@
     <PackageReference Include="Paramore.Darker.AspNetCore" Version="2.0.78" />
     <PackageReference Include="Paramore.Brighter.Extensions.DependencyInjection" Version="2.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,8 +25,13 @@
   <ItemGroup>
     <None Remove="Requests\" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Azure.Messaging.WebPubSub" />
+    <None Remove="Microsoft.ApplicationInsights.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SlankaToys.API.csproj" />
   </ItemGroup>
 </Project>

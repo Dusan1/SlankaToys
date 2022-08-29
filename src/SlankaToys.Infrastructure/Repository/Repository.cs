@@ -15,7 +15,6 @@ namespace SlankaToys.Infrastructure.Repository
         private readonly SlankaToysDbContext _dbContext;
         public Repository(SlankaToysDbContext dbContext)
         {
-            //_unitOfWork = unitOfWork;
             _dbContext = dbContext;
         }
         public T Add(T entity)

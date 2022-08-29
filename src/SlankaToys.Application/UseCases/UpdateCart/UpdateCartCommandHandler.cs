@@ -1,4 +1,5 @@
-﻿using Paramore.Brighter;
+﻿using Microsoft.Extensions.Logging;
+using Paramore.Brighter;
 using SlankaToys.Application.Contracts;
 using SlankaToys.Domain.Cart;
 using System;
@@ -14,29 +15,42 @@ namespace SlankaToys.Application.UseCases.UpdateCart
     {
         private readonly ICartRepository _cartRepository;
         private readonly IProductQueryRepository _productQueryRepository;
-        public UpdateCartCommandHandler(ICartRepository cartRepository, IProductQueryRepository productQueryRepository)
+        private readonly ILogger<UpdateCartCommandHandler> _logger;
+
+        public UpdateCartCommandHandler(ICartRepository cartRepository, IProductQueryRepository productQueryRepository,
+            ILogger<UpdateCartCommandHandler> logger)
         {
             _cartRepository = cartRepository;
             _productQueryRepository = productQueryRepository;
+            _logger = logger;
         }
 
         public override async Task<UpdateCartCommand> HandleAsync(UpdateCartCommand command, CancellationToken cancellationToken = default)
         {
-            var cart = await _cartRepository.GetCart(command.CartId);
-            var product = await _productQueryRepository.FirstOrDefault(a => a.Id == command.ProductId);
-
-            cart.RemoveCartItems(cart.CartItems.Where(i => i.ProductId == command.ProductId));
-
-            cart.AddCartItems(new CartItem() 
+            try
             {
-                ItemPrice = product.Price,
-                Quantity = command.Quantity,
-                ProductId = product.Id
-            });
+                var cart = await _cartRepository.GetCart(command.CartId);
+                var product = await _productQueryRepository.FirstOrDefault(a => a.Id == command.ProductId);
 
-            _cartRepository.Update(cart);
+                if (cart == null)
+                    throw new Exception("Cart not found");
 
-            await _cartRepository.SaveChangesAsync();
+                if (product == null)
+                    throw new Exception("Product not found");
+
+                cart.RemoveCartItems(cart.CartItems.Where(i => i.ProductId == command.ProductId));
+
+                cart.AddCartItems(new List<CartItem>() { new CartItem(product.Price, command.Quantity, product.Id) });
+
+                _cartRepository.Update(cart);
+
+                await _cartRepository.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Update cart command failed. ProductId: {productId}, cartId: {CartId}, with exception message: {message}", command.ProductId, command.CartId, ex.Message);
+                throw;
+            }
 
             return await base.HandleAsync(command);
         }

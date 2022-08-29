@@ -25,12 +25,12 @@ namespace SlankaToys.Infrastructure.Mappings
 
             builder.HasData(new List<Product>()
             {
-                new Product(){ Id = 1,ProductTypeId = 1, Name = "Ride lion", Description = "Plastic lion to ride", Price = 5M, ImageFileName = "ride_lion.jpg" },//0-3
-                new Product(){ Id = 2,ProductTypeId = 1, Name = "Barbie", Description = "Barbie toy", Price = 8.5M, ImageFileName = "barbie.jpg" },//3-6
-                new Product(){ Id = 3,ProductTypeId = 1, Name = "Minnie Puzzle", Description = "Puzzle of Minnie Mouse. It has 250 pieces", Price = 12.4M, ImageFileName = "minnie_puzzle.jpg" },//6-9, edu
-                new Product(){ Id = 4,ProductTypeId = 1, Name = "Lego doll house", Description = "Lego doll house for girls.", Price = 14.9M, ImageFileName = "lego_doll_house.jpg" },//lego
-                new Product(){ Id = 5,ProductTypeId = 1, Name = "Frozen Puzzle", Description = "Puzzle of frozen cartoon.It has 100 pieces", Price = 5M, ImageFileName = "frozen_puzzle.jpg" },//3-6, edu
-                new Product(){ Id = 6,ProductTypeId = 1, Name = "Fleece bear", Description = "Fleece bear toy.", Price = 5M, ImageFileName = "fleece_bear.jpg" }//fleece
+                new Product("Ride lion", "Plastic lion to ride", "ride_lion.jpg", 5m, 1) { Id = 1 },
+                new Product("Barbie", "Barbie toy", "barbie.jpg", 8.5m, 1) { Id = 2 },
+                new Product("Minnie Puzzle", "Puzzle of Minnie Mouse. It has 250 pieces", "minnie_puzzle.jpg", 12.4m, 1) { Id = 3 },
+                new Product("Lego doll house", "Lego doll house for girls.", "lego_doll_house.jpg", 14.9m, 1) { Id = 4 },
+                new Product("Frozen Puzzle", "Puzzle of frozen cartoon.It has 100 pieces", "frozen_puzzle.jpg", 5m, 1) { Id = 5 },
+                new Product("Fleece bear", "Fleece bear toy.",  "fleece_bear.jpg", 5m, 1) { Id = 6 }
             });
         }
     }

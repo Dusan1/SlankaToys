@@ -15,6 +15,7 @@ namespace SlankaToys.Infrastructure.Repository
         private readonly DbContext _slankaDbContext;
         public ProductRepository(SlankaToysDbContext _slankaToysDbContext) : base(_slankaToysDbContext)
         {
+
             _slankaDbContext = _slankaToysDbContext;
         }
 

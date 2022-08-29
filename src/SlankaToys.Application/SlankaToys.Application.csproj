@@ -14,14 +14,19 @@
   <ItemGroup>
     <PackageReference Include="Paramore.Darker" Version="2.0.78" />
     <PackageReference Include="Paramore.Brighter" Version="8.1.1399" />
+    <PackageReference Include="Azure.Messaging.WebPubSub" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SlankaToys.Domain\SlankaToys.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="UseCases\GetCart\" />
+    <None Remove="Azure.Messaging.WebPubSub" />
+    <None Remove="Microsoft.Extensions.Logging" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
+    <None Include="SlankaToys.Application.csproj" />
   </ItemGroup>
 </Project>

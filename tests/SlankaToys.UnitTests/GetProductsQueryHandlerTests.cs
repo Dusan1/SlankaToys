@@ -12,40 +12,36 @@ namespace SlankaToys.UnitTests
 {
     public class GetProductsQueryHandlerTests
     {
-        //private Mock<IProductRepository> productRepository;
-        //private GetProductsQueryHandler getProductsQueryHandler;
+        private Mock<IProductQueryRepository> productQueryRepository;
+        private GetProductsQueryHandler getProductsQueryHandler;
 
-        //[SetUp]
-        //public void Setup()
-        //{
-        //    productRepository = new Mock<IProductRepository>();
-        //    getProductsQueryHandler = new GetProductsQueryHandler(productRepository.Object);
-        //}
+        [SetUp]
+        public void Setup()
+        {
+            productQueryRepository = new Mock<IProductQueryRepository>();
+            getProductsQueryHandler = new GetProductsQueryHandler(productQueryRepository.Object);
+        }
 
-        //[Test]
-        //public async Task GetProductsQueryHandler_ReturnsCorrectResult()
-        //{
-        //    productRepository.Setup(repo => repo.Get()).ReturnsAsync(new List<Product>()
-        //    {
-        //        new Product()
-        //        {
-        //            Description = "test1",
-        //            ImageFileName = "test1",
-        //            Name = "test1",
-        //            Price = 1M,
-        //            Id = 1
-        //        }
-        //    });
+        [Test]
+        public async Task GetProductsQueryHandler_ReturnsCorrectResult()
+        {
+            productQueryRepository.Setup(repo => repo.Get()).ReturnsAsync(new List<Product>()
+            {
+                new Product("test1", "test1", "test1", 1m, 1)
+                {
+                    Id = 1
+                }
+            });
 
-        //    var queryResult = await getProductsQueryHandler.ExecuteAsync(new GetProductsQuery() { SearchTerm = "" });
+            var queryResult = await getProductsQueryHandler.ExecuteAsync(new GetProductsQuery() { SearchTerm = "" });
 
-        //    Assert.AreEqual(1, queryResult.Products.Count);
-        //    Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().Description);
-        //    Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().ImageFileName);
-        //    Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().Name);
-        //    Assert.AreEqual(1M, queryResult.Products.SingleOrDefault().Price);
-        //    Assert.AreEqual(1, queryResult.Products.SingleOrDefault().ProductId);
-        //    productRepository.Verify(pr => pr.Get(), Times.Once);
-        //}
+            Assert.AreEqual(1, queryResult.Products.Count);
+            Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().Description);
+            Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().ImageFileName);
+            Assert.AreEqual("test1", queryResult.Products.SingleOrDefault().Name);
+            Assert.AreEqual(1M, queryResult.Products.SingleOrDefault().Price);
+            Assert.AreEqual(1, queryResult.Products.SingleOrDefault().ProductId);
+            productQueryRepository.Verify(pr => pr.Get(), Times.Once);
+        }
     }
 }

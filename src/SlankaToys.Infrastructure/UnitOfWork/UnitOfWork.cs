@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SlankaToys.Infrastructure;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using SlankaToys.Application.Contracts;
 
 namespace SlankaToys.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public DbContext Context { get; }
+        public DbContext Context;
 
         public UnitOfWork(SlankaToysDbContext context)
         {
@@ -16,19 +16,23 @@ namespace SlankaToys.Infrastructure.UnitOfWork
         {
             Context.SaveChanges();
         }
-        public async Task<int> CommitAsync()
-        {
-            return (await Context.SaveChangesAsync());
-        }
 
         public void Dispose()
         {
-            Context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        public async Task DisposeAsync()
+        private void Dispose(bool disposing)
         {
-            await Context.DisposeAsync();
+            if (disposing)
+            {
+                if (Context != null)
+                {
+                    Context.Dispose();
+                    Context = null;
+                }
+            }
         }
     }
 }

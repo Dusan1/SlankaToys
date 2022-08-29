@@ -4,20 +4,21 @@ using System.Threading.Tasks;
 using SlankaToys.Application.Contracts;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace SlankaToys.Application.UseCases.GetProducts
 {
     public class GetProductsQueryHandler : QueryHandlerAsync<GetProductsQuery, GetProductsQueryResult>
     {
-        private readonly IProductQueryRepository _productRepository;
-        public GetProductsQueryHandler(IProductQueryRepository productRepository)
+        private readonly IProductQueryRepository _productQueryRepository;
+        public GetProductsQueryHandler(IProductQueryRepository productQueryRepository)
         {
-            _productRepository = productRepository;
+            _productQueryRepository = productQueryRepository;
         }
 
         public override async Task<GetProductsQueryResult> ExecuteAsync(GetProductsQuery query, CancellationToken cancellationToken = default)
         {
-            var result = await _productRepository.Get();
+            var result = await _productQueryRepository.Get();
             return new GetProductsQueryResult()
             {
                 Products = result.Select(pr => new ProductsModel()

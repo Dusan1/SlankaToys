@@ -18,7 +18,6 @@ namespace SlankaToys.Application.UseCases.GetCart
 
         public override async Task<GetCartQueryResult> ExecuteAsync(GetCartQuery query, CancellationToken cancellationToken = default)
         {
-            
             var cart = await _cartQueryRepository.GetUserCartWithItems(query.UserId);
 
             if (cart == null)
